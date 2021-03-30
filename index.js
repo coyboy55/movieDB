@@ -13,16 +13,16 @@ app.get('/', (req, res) => {
 });
 
 
-// // create a route for the test
-// app.get('/test', (req, res) => {
-//   res.send('{status:200, message:"ok"}');
-// });
+// create a route for the test
+app.get('/test', (req, res) => {
+  res.send('{status:200, message:"ok"}');
+});
 
-// // // create a route for the time
-// // var time=new Date(hours,minutes);
-// // app.get('/time', (req, res) => {
-// //   res.send('{status:200, message:<'+time+'>}');
-// // });
+// create a route for the time
+var time= new Date(Date.now());
+app.get('/time', (req, res) => {
+  res.send('{status:200, message:<'+time.getHours()+':'+time.getMinutes()+'>}');
+});
 
 
 // make the server listen to requests
