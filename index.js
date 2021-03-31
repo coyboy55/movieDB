@@ -10,10 +10,10 @@ const router = express.Router();
 
 //create the array of movies
 const movies = [
-  { title: 'Jaws', year: 1975, rating: 8 },
-  { title: 'Avatar', year: 2009, rating: 7.8 },
-  { title: 'Brazil', year: 1985, rating: 8 },
-  { title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
+  {title: 'Jaws', year: 1975, rating: 8 },
+  {title: 'Avatar', year: 2009, rating: 7.8 },
+  {title: 'Brazil', year: 1985, rating: 8 },
+  {title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
 ]
 
 
@@ -93,6 +93,7 @@ app.get('/movies/read', (req, res) => {
 }
   let moviesR=movies.sort( compare );
 */
+
   res.send('{status:200, data:'+JSON.stringify(movies)+'}');
   
 });
@@ -129,7 +130,7 @@ app.get('/movies/read/by-date', (req, res) => {
    res.send('{status:200, data:'+JSON.stringify(moviesR)+'}');
 });
 
-// create a route for read by date
+// create a route for read by title
 
 app.get('/movies/read/by-title', (req, res) => {
 
@@ -146,7 +147,7 @@ app.get('/movies/read/by-title', (req, res) => {
    res.send('{status:200, data:'+JSON.stringify(moviesR)+'}');
 });
 
-// create a route for read by date
+// create a route for read by rating
 
 app.get('/movies/read/by-rating', (req, res) => {
 
@@ -163,8 +164,32 @@ app.get('/movies/read/by-rating', (req, res) => {
    res.send('{status:200, data:'+JSON.stringify(moviesR)+'}');
 });
 
+// // create a route for read by ID
+// app.get('/movies/read/:id', (req, res) => {
+// let s=req.query.id;
+
+// let movie=movies[id];
+// res.send('{status:200, data:'+JSON.stringify(movie)+'}');
+  
+// });
 
 
+// create a route for the movies/add
+
+app.get('/movies/add', (req, res) => {
+  let rate1=4;
+  let title1=req.query.title;
+  let year1=req.query.year;
+  if(req.query.rate){rate1=req.query.rate;}
+  if(!req.query.title || !req.query.year || req.query.year.toString().length!=4 || !isNaN(req.query.year)){
+    res.send('{status:404, error:true, message:message:you cannot create a movie without providing a title and a year}');
+   }else{
+    let movieA={title:title1,year:year1,rate:rate1};
+    movies.push(movieA);
+  
+    res.send('{status:200, data:'+JSON.stringify(movies)+'}');
+  }
+});
 
 
 // make the server listen to requests
