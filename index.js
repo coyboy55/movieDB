@@ -8,6 +8,15 @@ const app = express();
 const router = express.Router();
 
 
+//create the array of movies
+const movies = [
+  { title: 'Jaws', year: 1975, rating: 8 },
+  { title: 'Avatar', year: 2009, rating: 7.8 },
+  { title: 'Brazil', year: 1985, rating: 8 },
+  { title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
+]
+
+
 // server configuration
 const PORT = 3000;
 
@@ -47,6 +56,35 @@ var time= new Date(Date.now());
 app.get('/time', (req, res) => {
   res.send('{status:200, message:<'+time.getHours()+':'+time.getMinutes()+'>}');
 });
+
+// create a route for the movies/create
+
+app.get('/movies/create', (req, res) => {
+  
+});
+
+
+// create a route for the movies/read
+
+app.get('/movies/read', (req, res) => {
+  res.send('{status:200, data:'+JSON.stringify(movies)+'}');
+  
+});
+
+// create a route for the movies/update
+
+app.get('/movies/update', (req, res) => {
+  
+});
+
+
+// create a route for the movies/delete
+
+app.get('/movies/delete', (req, res) => {
+
+});
+
+
 
 
 // make the server listen to requests
