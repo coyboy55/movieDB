@@ -67,6 +67,32 @@ app.get('/movies/create', (req, res) => {
 // create a route for the movies/read
 
 app.get('/movies/read', (req, res) => {
+
+  //by search but i think u dont mean that. so i creat many root 
+  /*
+  if (req.query.s=='by-date'){
+  function compare( a, b ) {
+    if ( a.year < b.year ){
+      return -1;
+    }
+    if ( a.year > b.year ){
+      return 1;
+    }
+    return 0;
+  }
+}else if (req.query.s=='by-title'){
+  function compare( a, b ) {
+    if ( a.title < b.title ){
+      return -1;
+    }
+    if ( a.title > b.title ){
+      return 1;
+    }
+    return 0;
+  }
+}
+  let moviesR=movies.sort( compare );
+*/
   res.send('{status:200, data:'+JSON.stringify(movies)+'}');
   
 });
@@ -80,9 +106,63 @@ app.get('/movies/update', (req, res) => {
 
 // create a route for the movies/delete
 
-app.get('/movies/delete', (req, res) => {
-
+app.get('/movies/delete/', (req, res) => {
+ 
 });
+
+
+
+// create a route for read by date
+
+app.get('/movies/read/by-date', (req, res) => {
+
+  function compare( a, b ) {
+    if ( a.year < b.year ){
+      return -1;
+    }
+    if ( a.year > b.year ){
+      return 1;
+    }
+    return 0;
+  }
+  let moviesR=movies.sort(compare);
+   res.send('{status:200, data:'+JSON.stringify(moviesR)+'}');
+});
+
+// create a route for read by date
+
+app.get('/movies/read/by-title', (req, res) => {
+
+  function compare( a, b ) {
+    if ( a.title < b.title ){
+      return -1;
+    }
+    if ( a.title > b.title ){
+      return 1;
+    }
+    return 0;
+  }
+  let moviesR=movies.sort(compare);
+   res.send('{status:200, data:'+JSON.stringify(moviesR)+'}');
+});
+
+// create a route for read by date
+
+app.get('/movies/read/by-rating', (req, res) => {
+
+  function compare( a, b ) {
+    if ( a.rating < b.rating ){
+      return -1;
+    }
+    if ( a.rating > b.rating ){
+      return 1;
+    }
+    return 0;
+  }
+  let moviesR=movies.sort(compare);
+   res.send('{status:200, data:'+JSON.stringify(moviesR)+'}');
+});
+
 
 
 
@@ -91,3 +171,13 @@ app.get('/movies/delete', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at: http://localhost:${PORT}/`);
 });
+
+
+
+
+
+
+
+
+
+
