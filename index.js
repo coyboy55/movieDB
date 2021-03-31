@@ -187,6 +187,32 @@ app.get('/movies/delete/:id', (req, res) => {
     
   });
   
+  
+// // create a route for update by ID
+app.get('/movies/update/:id', (req, res) => {
+  let ID=req.params.id;
+  let title1=movies[ID].title;
+  let rate1=movies[ID].rating;
+  let year1=movies[ID].year;
+  if(req.query.title){
+   title1=req.query.title;}
+  if(req.query.rate){
+   rate1=req.query.rate;}
+   if(req.query.year){
+   year1=req.query.year;}
+
+  if(ID<0 || ID>movies.length){
+    res.send('{status:404, error:true, message:the movie <'+ID+'> does not exist}');
+  }
+
+  movies[ID].title=title1;
+  movies[ID].rating=rate1;
+  movies[ID].year=year1;
+
+
+  res.send('{status:200, data:'+JSON.stringify(movies)+'}');
+    
+  });
 
 // create a route for the movies/add
 
