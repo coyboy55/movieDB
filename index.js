@@ -66,7 +66,7 @@ app.get('/movies/create', (req, res) => {
 
 // create a route for the movies/read
 
-app.get('/movies/read', (req, res) => {
+app.get('/movies/GET', (req, res) => {
 
   //by search but i think u dont mean that. so i creat many root 
   /*
@@ -165,7 +165,7 @@ app.get('/movies/read/by-rating', (req, res) => {
 });
 
 // // create a route for read by ID
-app.get('/movies/read/:id', (req, res) => {
+app.get('/movies/POST/:id', (req, res) => {
 let ID=req.params.id;
 if(ID<0 || ID>movies.length){
   res.send('{status:404, error:true, message:the movie <'+ID+'> does not exist}');
@@ -177,7 +177,7 @@ res.send('{status:200, data:'+JSON.stringify(movie)+'}');
 
 
 // // create a route for delete by ID
-app.get('/movies/delete/:id', (req, res) => {
+app.get('/movies/DELETE/:id', (req, res) => {
   let ID=req.params.id;
   if(ID<0 || ID>movies.length){
     res.send('{status:404, error:true, message:the movie <'+ID+'> does not exist}');
@@ -189,7 +189,7 @@ app.get('/movies/delete/:id', (req, res) => {
   
   
 // // create a route for update by ID
-app.get('/movies/update/:id', (req, res) => {
+app.get('/movies/PATCH/:id', (req, res) => {
   let ID=req.params.id;
   let title1=movies[ID].title;
   let rate1=movies[ID].rating;
