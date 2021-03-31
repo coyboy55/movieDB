@@ -176,6 +176,18 @@ res.send('{status:200, data:'+JSON.stringify(movie)+'}');
 });
 
 
+// // create a route for delete by ID
+app.get('/movies/delete/:id', (req, res) => {
+  let ID=req.params.id;
+  if(ID<0 || ID>movies.length){
+    res.send('{status:404, error:true, message:the movie <'+ID+'> does not exist}');
+  }
+  movies.splice(ID);
+  res.send('{status:200, data:'+JSON.stringify(movies)+'}');
+    
+  });
+  
+
 // create a route for the movies/add
 
 app.get('/movies/add', (req, res) => {
