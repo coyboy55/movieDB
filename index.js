@@ -165,13 +165,15 @@ app.get('/movies/read/by-rating', (req, res) => {
 });
 
 // // create a route for read by ID
-// app.get('/movies/read/:id', (req, res) => {
-// let s=req.query.id;
-
-// let movie=movies[id];
-// res.send('{status:200, data:'+JSON.stringify(movie)+'}');
+app.get('/movies/read/:id', (req, res) => {
+let ID=req.params.id;
+if(ID<0 || ID>movies.length){
+  res.send('{status:404, error:true, message:the movie <'+ID+'> does not exist}');
+}
+let movie=movies[ID];
+res.send('{status:200, data:'+JSON.stringify(movie)+'}');
   
-// });
+});
 
 
 // create a route for the movies/add
