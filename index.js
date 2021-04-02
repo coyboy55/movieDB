@@ -15,6 +15,57 @@ const movies = [
   {title: 'Brazil', year: 1985, rating: 8 },
   {title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
 ]
+//creat db
+const bodyParser= require('body-parser');
+const MongoClient = require('mongodb').MongoClient
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => {
+  res.sendFile('C:/Users/coyboy/repos/MovieDB/MovieDB/index.html')
+  // Note: __dirname is the current directory you're in. Try logging it and see what you get!
+  // Mine was '/Users/zellwk/Projects/demo-repos/crud-express-mongo' for this app.
+})
+app.post('/info', (req, res) => {
+ 
+  console.log(req.body);
+});
+
+
+
+
+//let conString='mongodb+srv://fakhercode:<f@khercode#>@cluster0.dh1av.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+let uri = 'mongodb+srv://<fakhercode>:<f@khercode#>@<clustername>-rmp3c.mongodb.net/test?retryWrites=true&w=majority';
+MongoClient.connect(uri, { useUnifiedTopology: true })
+  .then(client => {
+    console.log('Connected to Database')
+    app.post('/movies/POST', (req, res) => {
+      let rate1=4;
+      let title1=req.query.title;
+      let year1=req.query.year;
+      if(req.query.rate){rate1=req.query.rate;}
+      if(!req.query.title || !req.query.year || req.query.year.toString().length!=4 || !isNaN(req.query.year)){
+        res.send('{status:404, error:true, message:message:you cannot create a movie without providing a title and a year}');
+       }else{
+        let movieA={title:title1,year:year1,rate:rate1};
+        movies.push(movieA);
+      
+        res.send('{status:200, data:'+JSON.stringify(movies)+'}');
+      }
+    });
+  })
+  .catch(error => console.error(error))
+// const bodyParser= require('body-parser');
+
+
+// Make sure you place body-parser before your CRUD handlers!
+//app.use(urlencoded({ extended: true }));
+
+// All your handlers here...
+
+
+
+
+
 
 
 // server configuration
@@ -59,7 +110,7 @@ app.get('/time', (req, res) => {
 
 // create a route for the movies/create
 
-app.get('/movies/create', (req, res) => {
+app.get('/movies/POST', (req, res) => {
   
 });
 
@@ -100,14 +151,14 @@ app.get('/movies/GET', (req, res) => {
 
 // create a route for the movies/update
 
-app.get('/movies/update', (req, res) => {
+app.get('/movies/PATCH', (req, res) => {
   
 });
 
 
 // create a route for the movies/delete
 
-app.get('/movies/delete/', (req, res) => {
+app.get('/movies/DELETE/', (req, res) => {
  
 });
 
@@ -115,7 +166,7 @@ app.get('/movies/delete/', (req, res) => {
 
 // create a route for read by date
 
-app.get('/movies/read/by-date', (req, res) => {
+app.get('/movies/GET/by-date', (req, res) => {
 
   function compare( a, b ) {
     if ( a.year < b.year ){
@@ -132,7 +183,7 @@ app.get('/movies/read/by-date', (req, res) => {
 
 // create a route for read by title
 
-app.get('/movies/read/by-title', (req, res) => {
+app.get('/movies/GET/by-title', (req, res) => {
 
   function compare( a, b ) {
     if ( a.title < b.title ){
@@ -149,7 +200,7 @@ app.get('/movies/read/by-title', (req, res) => {
 
 // create a route for read by rating
 
-app.get('/movies/read/by-rating', (req, res) => {
+app.get('/movies/GET/by-rating', (req, res) => {
 
   function compare( a, b ) {
     if ( a.rating < b.rating ){
@@ -165,7 +216,7 @@ app.get('/movies/read/by-rating', (req, res) => {
 });
 
 // // create a route for read by ID
-app.get('/movies/POST/:id', (req, res) => {
+app.get('/movies/GET/:id', (req, res) => {
 let ID=req.params.id;
 if(ID<0 || ID>movies.length){
   res.send('{status:404, error:true, message:the movie <'+ID+'> does not exist}');
@@ -189,7 +240,7 @@ app.get('/movies/DELETE/:id', (req, res) => {
   
   
 // // create a route for update by ID
-app.get('/movies/PATCH/:id', (req, res) => {
+app.patch('/movies/PATCH/:id', (req, res) => {
   let ID=req.params.id;
   let title1=movies[ID].title;
   let rate1=movies[ID].rating;
@@ -216,7 +267,7 @@ app.get('/movies/PATCH/:id', (req, res) => {
 
 // create a route for the movies/add
 
-app.get('/movies/add', (req, res) => {
+app.post('/movies/POST', (req, res) => {
   let rate1=4;
   let title1=req.query.title;
   let year1=req.query.year;
@@ -232,6 +283,14 @@ app.get('/movies/add', (req, res) => {
 });
 
 
+
+
+
+//save into database
+
+app.get('/save', (req, res) => {
+ 
+});
 // make the server listen to requests
 app.listen(PORT, () => {
   console.log(`Server running at: http://localhost:${PORT}/`);
