@@ -30,6 +30,15 @@ app.post('/info', (req, res) => {
   console.log(req.body);
 });
 
+// USER
+MongoClient.connect(/* ... */)
+  .then(client => {
+
+    const db = client.db('star-wars-quotes')
+    const quotesCollection = db.collection('info')
+
+   
+  })
 
 
 
